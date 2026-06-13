@@ -1,4 +1,4 @@
-import { Input, Label } from "@heroui/react";
+import { Input, Label, TextField } from "@heroui/react";
 
 export function PackagedForm({
   brand,
@@ -10,8 +10,8 @@ export function PackagedForm({
 }) {
   return (
     <>
-      <div className="flex flex-col gap-2">
-        <Label htmlFor="input-dish" isRequired>
+      <TextField className="flex flex-col gap-2" name="input-brand" isRequired>
+        <Label>
           Brand
         </Label>
         <Input
@@ -20,9 +20,13 @@ export function PackagedForm({
           onChange={(event) => set_brand(event.target.value)}
           placeholder="e.g. Arnott's"
         ></Input>
-      </div>
-      <div className="flex flex-col gap-2">
-        <Label htmlFor="input-product" isRequired>
+      </TextField>
+      <TextField
+        className="flex flex-col gap-2"
+        name="input-product"
+        isRequired
+      >
+        <Label>
           Product
         </Label>
         <Input
@@ -31,16 +35,21 @@ export function PackagedForm({
           onChange={(event) => set_product(event.target.value)}
           placeholder="e.g. Tim Tam"
         ></Input>
-      </div>
-      <div className="flex flex-col gap-2">
-        <Label htmlFor="input-variant">Variant</Label>
+      </TextField>
+      <TextField
+        className="flex flex-col gap-2"
+        name="input-variant"
+      >
+        <Label>
+          Variant
+        </Label>
         <Input
           id="input-variant"
           value={variant}
           onChange={(event) => set_variant(event.target.value)}
           placeholder="e.g. Caramel"
         ></Input>
-      </div>
+      </TextField>
     </>
   );
 }

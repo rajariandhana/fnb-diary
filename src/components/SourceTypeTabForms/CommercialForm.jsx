@@ -1,10 +1,10 @@
-import { Input, Label } from "@heroui/react";
+import { Input, Label, TextField } from "@heroui/react";
 
 export function CommercialForm({ business, set_business, dish, set_dish }) {
   return (
     <>
-      <div className="flex flex-col gap-2">
-        <Label htmlFor="input-dish" isRequired>
+      <TextField className="flex flex-col gap-2" name="input-business" isRequired>
+        <Label>
           What place did you visit?
         </Label>
         <Input
@@ -13,9 +13,9 @@ export function CommercialForm({ business, set_business, dish, set_dish }) {
           onChange={(event) => set_business(event.target.value)}
           placeholder="e.g. McDonald's"
         ></Input>
-      </div>
-      <div className="flex flex-col gap-2">
-        <Label htmlFor="input-dish" isRequired>
+      </TextField>
+      <TextField className="flex flex-col gap-2" name="input-dish" isRequired>
+        <Label>
           What did you ordered?
         </Label>
         <Input
@@ -24,7 +24,7 @@ export function CommercialForm({ business, set_business, dish, set_dish }) {
           onChange={(event) => set_dish(event.target.value)}
           placeholder="e.g. BigMac"
         ></Input>
-      </div>
+      </TextField>
     </>
   );
 }

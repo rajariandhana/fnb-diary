@@ -18,7 +18,7 @@ const Nav = () => {
     },
   ];
   return (
-    <header className="sticky bottom-0 z-20 w-full h-16 bg-white border border-neutral-300 px-6 flex items-center justify-around">
+    <header className="sticky bottom-0 z-20 w-full h-16 bg-background-tertiary px-6 flex items-center justify-around">
       {links.map((link) => {
         let active = location.pathname === link.to;
         return (
