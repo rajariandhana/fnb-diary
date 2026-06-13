@@ -16,11 +16,11 @@ export function ConsumeEntry() {
     const response = await instance.get("/ping");
     console.log(response);
   };
-	
+
   return (
-    <>
-      <DatePicker value={value} onChange={setValue}>
-        <Label>Date</Label>
+    <div className="bg-red-50 flex flex-col gap-4">
+      <DatePicker value={value} onChange={setValue} aria-label="Date">
+        {/* <Label>Date</Label> */}
         <DateField.Group fullWidth>
           <DateField.Input>
             {(segment) => <DateField.Segment segment={segment} />}
@@ -87,6 +87,6 @@ export function ConsumeEntry() {
       </Tabs>
 
       <Button onPress={ping}>My Button</Button>
-    </>
+    </div>
   );
 }

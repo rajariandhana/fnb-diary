@@ -25,7 +25,7 @@ const Nav = () => {
           <Link
             key={link.to}
             to={link.to}
-            className={`flex gap-1 items-center ${active ? "text-primary" : ""}`}
+            className={`flex gap-1 items-center ${active ? "text-accent" : ""}`}
           >
             {link.icon} {link.label}
           </Link>
