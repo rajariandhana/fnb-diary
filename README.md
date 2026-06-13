@@ -8,3 +8,5 @@ These are the things that I'm considering
 3. I want a more general term for restaurant made since it could be anything that I bought from a business establishments such as from a restaurant, fast food, cafe, milk tea shop.
 4. Provide options for another term of ultra-processed
 
+TODO:
+- use ComboBox for search select

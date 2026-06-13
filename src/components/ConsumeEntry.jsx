@@ -1,14 +1,9 @@
-import { useState } from "react";
-import {
-  Button,
-  Calendar,
-  DateField,
-  DatePicker,
-  Label,
-  Tabs,
-} from "@heroui/react";
+import { useEffect, useState } from "react";
+import { Button, Calendar, DateField, DatePicker, Tabs } from "@heroui/react";
 import { getLocalTimeZone, today } from "@internationalized/date";
 import instance from "../libs/axios/instance";
+import { SelectConsumableType } from "./SelectConsumableType";
+import { DEFAULT_CONSUMABLE_TYPE } from "../hooks/useConsumableEntry";
 
 export function ConsumeEntry() {
   const [value, setValue] = useState(today(getLocalTimeZone()));
@@ -17,8 +12,15 @@ export function ConsumeEntry() {
     console.log(response);
   };
 
+  const [entryForm, setEntryForm] = useState({});
+
+  const [consumableType, setConsumableType] = useState(DEFAULT_CONSUMABLE_TYPE);
+  useEffect(() => {
+    console.log(consumableType);
+  }, [consumableType]);
+
   return (
-    <div className="bg-red-50 flex flex-col gap-4">
+    <div className="flex flex-col gap-4 w-96">
       <DatePicker value={value} onChange={setValue} aria-label="Date">
         {/* <Label>Date</Label> */}
         <DateField.Group fullWidth>
@@ -57,7 +59,10 @@ export function ConsumeEntry() {
           </Calendar>
         </DatePicker.Popover>
       </DatePicker>
-
+      <SelectConsumableType
+        consumableType={consumableType}
+        setConsumableType={setConsumableType}
+      />
       <Tabs className="w-full max-w-md">
         <Tabs.ListContainer>
           <Tabs.List aria-label="Options">
