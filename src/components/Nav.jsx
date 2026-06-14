@@ -6,15 +6,15 @@ import { FaList } from "react-icons/fa6";
 const Nav = () => {
   const location = useLocation();
   const links = [
+		{
+			to: "/",
+			label: "Home",
+			icon: <FaList size={20} />,
+		},
     {
-      to: "/",
+      to: "/entry",
 			label: "New Entry",
       icon: <FaPlus size={20} />,
-    },
-    {
-      to: "/entries",
-      label: "Entries",
-      icon: <FaList size={20} />,
     },
   ];
   return (

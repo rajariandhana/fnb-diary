@@ -1,12 +1,13 @@
 import { Input, Label, TextField } from "@heroui/react";
 
-export function HomemadeForm({ set_dish }) {
+export function HomemadeForm({ dish, set_dish }) {
   return (
     <>
       <TextField
         className="flex flex-col gap-2"
         name="input-dish"
         isRequired
+        value={dish}
         onChange={set_dish}
       >
         <Label>What did you cooked?</Label>

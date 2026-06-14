@@ -13,7 +13,7 @@ const Layout = ({ nav }) => {
       <main className="flex flex-1 flex-col items-center w-full max-w-4xl gap-6 p-6">
         <Outlet />
       </main>
-      {nav ?? <Nav />}
+      {/* {nav ?? <Nav />} */}
       {/* {footer ?? <Footer />} */}
     </div>
   );

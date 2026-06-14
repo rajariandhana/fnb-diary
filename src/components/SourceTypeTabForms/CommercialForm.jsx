@@ -1,12 +1,13 @@
 import { Input, Label, TextField } from "@heroui/react";
 
-export function CommercialForm({ set_business, set_dish }) {
+export function CommercialForm({ business, set_business, dish, set_dish }) {
   return (
     <>
       <TextField
         className="flex flex-col gap-2"
         name="input-business"
         isRequired
+        value={business}
         onChange={set_business}
       >
         <Label>What place did you visit?</Label>
@@ -14,8 +15,9 @@ export function CommercialForm({ set_business, set_dish }) {
       </TextField>
       <TextField
         className="flex flex-col gap-2"
-        name="input-dish"
+        name="input-commercial-dish"
         isRequired
+        value={dish}
         onChange={set_dish}
       >
         <Label>What did you ordered?</Label>

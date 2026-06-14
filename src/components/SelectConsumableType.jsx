@@ -3,7 +3,7 @@ import clsx from "clsx";
 import { PiBowlFoodLight } from "react-icons/pi";
 import { RiDrinks2Line } from "react-icons/ri";
 
-export function SelectConsumableType({ consumableType, setConsumableType }) {
+export function SelectConsumableType({ consumable_type, set_consumable_type }) {
   const options = [
     {
       key: "food",
@@ -19,8 +19,8 @@ export function SelectConsumableType({ consumableType, setConsumableType }) {
 
   return (
     <RadioGroup
-      value={consumableType}
-      onChange={setConsumableType}
+      value={consumable_type}
+      onChange={set_consumable_type}
       variant="secondary"
     >
       <div className="flex w-full gap-2 justify-between">
