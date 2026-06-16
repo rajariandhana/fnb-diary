@@ -7,7 +7,6 @@ export function SelectConsumedDate({ consumed_at, set_consumed_at }) {
       onChange={set_consumed_at}
       aria-label="Date"
     >
-      {/* <Label>Date</Label> */}
       <DateField.Group fullWidth>
         <DateField.Input>
           {(segment) => <DateField.Segment segment={segment} />}

@@ -21,6 +21,7 @@ import { HomemadeForm } from "./SourceTypeTabForms/HomemadeForm";
 import { CommercialForm } from "./SourceTypeTabForms/CommercialForm";
 import { PackagedForm } from "./SourceTypeTabForms/PackagedForm";
 import { useNavigate } from "react-router";
+import { Optional } from "./Optional";
 
 export function ConsumeEntry() {
   const ping = async () => {
@@ -50,13 +51,20 @@ export function ConsumeEntry() {
     {
       key: "homemade",
       label: "Homemade",
-      tab: <HomemadeForm dish={dish} set_dish={set_dish} />,
+      tab: (
+        <HomemadeForm
+          consumable_type={consumable_type}
+          dish={dish}
+          set_dish={set_dish}
+        />
+      ),
     },
     {
       key: "commercial",
       label: "Commercial",
       tab: (
         <CommercialForm
+          consumable_type={consumable_type}
           business={business}
           set_business={set_business}
           dish={commercial_dish}
@@ -69,6 +77,7 @@ export function ConsumeEntry() {
       label: "Packaged",
       tab: (
         <PackagedForm
+          consumable_type={consumable_type}
           brand={brand}
           set_brand={set_brand}
           product={product}
@@ -89,7 +98,7 @@ export function ConsumeEntry() {
       (source_type == "commercial" &&
         business.length > 0 &&
         commercial_dish.length > 0) ||
-      (source_type == "packaged" && brand.length > 0 && product.length > 0)
+      (source_type == "packaged" && product.length > 0)
     ) {
       set_disable_next(false);
     } else {
@@ -207,10 +216,7 @@ export function ConsumeEntry() {
           <>
             <TextField name="input-ingridients" onChange={set_ingridients}>
               <Label>
-                Ingridients{" "}
-                <Chip color="accent" className="ml-2">
-                  (optional)
-                </Chip>
+                Ingridients <Optional />
               </Label>
               <TextArea
                 className={"h-32"}
@@ -219,14 +225,12 @@ export function ConsumeEntry() {
             </TextField>
             <TextField name="input-notes" onChange={set_notes}>
               <Label>
-                Additional Notes
-                <Chip color="accent" className="ml-2">
-                  (optional)
-                </Chip>
+                Additional notes
+                <Optional />
               </Label>
               <TextArea
                 className={"h-32"}
-                placeholder="e.g. I ate this at like 3 AM, shared with friends, how it tasted, how you felt..."
+                placeholder="e.g. ate this at 3 AM, shared with friends, less sugar..."
               ></TextArea>
             </TextField>
           </>
@@ -235,10 +239,7 @@ export function ConsumeEntry() {
       <div className="flex justify-between">
         {page === 0 ? (
           <>
-            <Button
-              onPress={() => navigate("/")}
-              variant="secondary"
-            >
+            <Button onPress={() => navigate("/")} variant="secondary">
               Back
             </Button>
             <Button onPress={() => set_page(1)} isDisabled={disable_next}>
