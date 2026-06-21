@@ -7,8 +7,8 @@ export function CommercialForm({
   set_business,
   dish,
   set_dish,
-	variant,
-	set_variant,
+  variant,
+  set_variant,
 }) {
   return (
     <>
@@ -19,7 +19,7 @@ export function CommercialForm({
         value={business}
         onChange={set_business}
       >
-        <Label>What place did you visit?</Label>
+        <Label className="h-6">What place did you visit?</Label>
         <Input
           placeholder={
             consumable_type === "food" ? "e.g. McDonald's" : "e.g. Chatime"
@@ -33,20 +33,20 @@ export function CommercialForm({
         value={dish}
         onChange={set_dish}
       >
-        <Label>What did you order?</Label>
+        <Label className="h-6">What did you order?</Label>
         <Input
           placeholder={
             consumable_type === "food" ? "e.g. Big Mac" : "e.g. Pearl Milk Tea"
           }
         ></Input>
       </TextField>
-			<TextField
+      <TextField
         className="flex flex-col gap-2"
         name="input-variant"
         value={variant}
         onChange={set_variant}
       >
-        <Label>
+        <Label className="h-6">
           Variant
           <Optional />
         </Label>

@@ -18,7 +18,7 @@ export function PackagedForm({
         value={brand}
         onChange={set_brand}
       >
-        <Label>
+        <Label className="h-6">
           Brand
           <Optional />
         </Label>
@@ -33,7 +33,7 @@ export function PackagedForm({
         value={product}
         onChange={set_product}
       >
-        <Label>Product</Label>
+        <Label className="h-6">Product</Label>
         <Input
           placeholder={
             consumable_type === "food" ? "e.g. Tim Tam" : "e.g. Red Bull"
@@ -46,7 +46,7 @@ export function PackagedForm({
         value={variant}
         onChange={set_variant}
       >
-        <Label>
+        <Label className="h-6">
           Variant
           <Optional />
         </Label>
