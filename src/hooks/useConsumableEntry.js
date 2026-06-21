@@ -19,11 +19,9 @@ const ConsumableTypeContext = createContext();
 
 const fetchEntries = async ({ queryKey }) => {
   const [, period] = queryKey;
-
   const response = await instance.post("/fnb/entry/period", {
     period,
   });
-
   return response.data.data;
 };
 
@@ -42,7 +40,7 @@ export function useEntries(period) {
       return entries;
     },
 
-    staleTime: 1000 * 60 * 5, // 5 minutes
+    staleTime: 1000 * 60 * 10,
   });
 }
 export { DEFAULT_CONSUMABLE_TYPE, DEFAULT_SOURCE_TYPE, ConsumableTypeContext };

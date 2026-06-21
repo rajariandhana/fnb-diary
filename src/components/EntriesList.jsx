@@ -2,9 +2,18 @@ import { EmptyState, Spinner, Table } from "@heroui/react";
 import { ConsumableTypeChip } from "./ConsumableTypeChip";
 import { SourceTypeChip } from "./SourceTypeChip";
 import { useEntries } from "../hooks/useConsumableEntry";
+import { useEffect } from "react";
 
-export function EntriesList({ week }) {
+export function EntriesList({ week, set_size }) {
   const { data: entries, isPending } = useEntries(week);
+
+	useEffect(() => {
+		if (entries) {
+			set_size(entries.length);
+		} else {
+			set_size(0);
+		}
+	}, [entries]);
 
   return (
     <Table>

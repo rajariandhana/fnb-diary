@@ -11,6 +11,9 @@ These are the things that I'm considering
 TODO:
 - use ComboBox for search select
 - consider removing `Brand` field
+- limit how many generating content per day (limit token)
+- create roast history
+- maybe add AI audio
 
 The Weekly Roast
 This Weeks Material

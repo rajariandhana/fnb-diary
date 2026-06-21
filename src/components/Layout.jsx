@@ -7,11 +7,11 @@ const Layout = ({ nav }) => {
   let { locale, direction } = useLocale();
   return (
     <div
-      className="flex flex-col items-center min-h-screen"
+      className="flex flex-col items-center min-h-screen bg-background-secondary"
       lang={locale}
       dir={direction}
     >
-      <main className="flex flex-1 flex-col items-center w-full max-w-4xl gap-6 p-6">
+      <main className="flex flex-1 flex-col items-center w-full md:w-3xl lg:w-4xl gap-6 p-6">
         <Logo />
         <Outlet />
       </main>
