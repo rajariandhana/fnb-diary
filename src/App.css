@@ -1,11 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Roboto:ital,wght@0,100..900;1,100..900&family=Tangerine:wght@400;700&display=swap');
 @import "tailwindcss";
-@import "@heroui/styles"; 
+@import "@heroui/styles";
 
 @theme {
   --font-jakarta: "Plus Jakarta Sans", sans-serif;
   --font-roboto: "Roboto", sans-serif;
   --font-google: "Google Sans", sans-serif;
+	--font-eb-garamond: "EB Garamond", serif;
+	--font-tangerine: "Tangerine", cursive;
+
 }
 
 * {
@@ -14,13 +17,13 @@
 
 :root {
   /* Override any color variable */
-	/* --background: "#fefefe"; */
+  /* --background: "#fefefe"; */
   --accent: oklch(0.5774 0.2092 273.8501);
   --success: oklch(0.65 0.15 155);
 }
 
 @layer components {
-	.button {
+  .button {
     @apply rounded-md;
   }
   /* .button--primary {
@@ -76,4 +79,53 @@
   .date-input-group__suffix {
     @apply pointer-events-none shrink-0 text-field-placeholder flex items-center;
   }
+
+  .table-root {
+    @apply rounded-lg;
+  }
+	
+  .table__column {
+    @apply text-center;
+  }
+
+  .table__cell {
+    @apply text-center;
+  }
+
+  .table-root .table__cell,
+  .table-root .table__column {
+    @apply px-2 py-2;
+  }
+}
+
+:root,
+[data-theme="light"] {
+  --food: oklch(70.4% 0.191 22.216);
+  --beverage: oklch(70.7% 0.165 254.624);
+	--homemade: oklch(86.5% 0.127 207.078);
+	--commercial: oklch(90.5% 0.182 98.111);
+	--packaged: oklch(81.1% 0.111 293.571);
+
+  --info: oklch(0.6 0.15 210);
+  --info-foreground: oklch(0.98 0 0);
+}
+.dark,
+[data-theme="dark"] {
+  --info: oklch(0.7 0.12 210);
+  --info-foreground: oklch(0.15 0 0);
+}
+/* Make the color available to Tailwind */
+@theme inline {
+  --color-food: var(--food);
+  --color-beverage: var(--beverage);
+	--color-homemade: var(--homemade);
+	--color-commercial: var(--commercial);
+	--color-packaged: var(--packaged);
+
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+}
+
+.column-name {
+  @apply text-left max-w-48 truncate;
 }
