@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import {
   Button,
-  Chip,
   Label,
   Spinner,
   Tabs,
@@ -38,6 +37,7 @@ export function ConsumeEntry() {
   const [dish, set_dish] = useState("");
   const [business, set_business] = useState("");
   const [commercial_dish, set_commercial_dish] = useState("");
+  const [commercial_variant, set_commercial_variant] = useState("");
   const [brand, set_brand] = useState("");
   const [product, set_product] = useState("");
   const [variant, set_variant] = useState("");
@@ -69,6 +69,8 @@ export function ConsumeEntry() {
           set_business={set_business}
           dish={commercial_dish}
           set_dish={set_commercial_dish}
+          variant={commercial_variant}
+          set_variant={set_commercial_variant}
         />
       ),
     },
@@ -104,7 +106,7 @@ export function ConsumeEntry() {
     } else {
       set_disable_next(true);
     }
-  }, [source_type, dish, business, commercial_dish, brand, product, variant]);
+  }, [source_type, dish, business, commercial_dish, product]);
 
   const [is_submitting, set_is_submitting] = useState();
   const navigate = useNavigate();
@@ -113,6 +115,7 @@ export function ConsumeEntry() {
     let entry = {
       consumable_type,
       source_type,
+      consumed_at: consumed_at.toString(),
     };
     if (source_type === "homemade") {
       entry = {
@@ -124,6 +127,7 @@ export function ConsumeEntry() {
         ...entry,
         business,
         dish: commercial_dish,
+        variant: commercial_variant,
       };
     } else if (source_type === "packaged") {
       entry = {

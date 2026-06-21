@@ -1,17 +1,19 @@
-import { EmptyState, Table } from "@heroui/react";
+import { EmptyState, Spinner, Table } from "@heroui/react";
 import { ConsumableTypeChip } from "./ConsumableTypeChip";
 import { SourceTypeChip } from "./SourceTypeChip";
 import { useEntries } from "../hooks/useConsumableEntry";
 
-export function EntriesList() {
-  const { data: entries, isPending } = useEntries("PERIOD_THIS_WEEK");
+export function EntriesList({ week }) {
+  const { data: entries, isPending } = useEntries(week);
 
   return (
     <Table>
       <Table.ScrollContainer>
         <Table.Content aria-label="Entries Table" className="h-full">
           <Table.Header>
-            <Table.Column className={"column-date"}>Date</Table.Column>
+            <Table.Column isRowHeader className={"column-date"}>
+              Date
+            </Table.Column>
             <Table.Column className={"column-type"}>Type</Table.Column>
             <Table.Column className={"column-source"}>Source</Table.Column>
             <Table.Column className={"column-name"}>Name</Table.Column>
@@ -19,11 +21,16 @@ export function EntriesList() {
           <Table.Body
             renderEmptyState={() => (
               <EmptyState className="flex h-full w-full flex-col items-center justify-center text-center">
-                <span className="text-sm text-muted">No results found</span>
+                {isPending ? (
+                  <Spinner />
+                ) : (
+                  <span className="text-sm text-muted">No results found</span>
+                )}
               </EmptyState>
             )}
           >
             {!isPending &&
+              entries &&
               entries.map((entry) => (
                 <Table.Row key={entry._id}>
                   <Table.Cell className={"column-date"}>

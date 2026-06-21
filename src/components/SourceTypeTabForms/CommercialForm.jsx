@@ -1,4 +1,5 @@
 import { Input, Label, TextField } from "@heroui/react";
+import { Optional } from "../Optional";
 
 export function CommercialForm({
   consumable_type,
@@ -6,6 +7,8 @@ export function CommercialForm({
   set_business,
   dish,
   set_dish,
+	variant,
+	set_variant,
 }) {
   return (
     <>
@@ -34,6 +37,22 @@ export function CommercialForm({
         <Input
           placeholder={
             consumable_type === "food" ? "e.g. Big Mac" : "e.g. Pearl Milk Tea"
+          }
+        ></Input>
+      </TextField>
+			<TextField
+        className="flex flex-col gap-2"
+        name="input-variant"
+        value={variant}
+        onChange={set_variant}
+      >
+        <Label>
+          Variant
+          <Optional />
+        </Label>
+        <Input
+          placeholder={
+            consumable_type === "food" ? "e.g. Caramel" : "e.g. Zero"
           }
         ></Input>
       </TextField>
