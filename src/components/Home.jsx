@@ -1,9 +1,8 @@
-import { Button, EmptyState, Spinner, Table, toast } from "@heroui/react";
+import { Button, EmptyState, Spinner, Table } from "@heroui/react";
 import { useNavigate } from "react-router";
 import { FaPlus } from "react-icons/fa";
 import { useState } from "react";
 import { FaAnglesLeft, FaAnglesRight } from "react-icons/fa6";
-import instance from "../libs/axios/instance";
 import { useEntries } from "../hooks/useConsumableEntry";
 import { ConsumableTypeChip } from "./ConsumableTypeChip";
 import { SourceTypeChip } from "./SourceTypeChip";
@@ -11,32 +10,9 @@ import { ImFire } from "react-icons/im";
 
 export default function Home() {
   const navigate = useNavigate();
+
   const [week, set_week] = useState("PERIOD_THIS_WEEK");
   const { data: entries, isPending } = useEntries(week);
-
-  const [roast_loading, set_roast_loading] = useState(false);
-  const handle_roast = async () => {
-    set_roast_loading(true);
-    try {
-      const response = await instance.post("/fnb/roast", {
-        // period: "SAMPLE",
-        period: week,
-      });
-      console.log(response.data.data);
-      navigate("/roast-portion", {
-        state: {
-          // period: "SAMPLE",
-          period: week,
-          roast: response.data.data.roast,
-        },
-      });
-    } catch (error) {
-      console.error(error.response.data.meta);
-      toast.danger(error.response.data.meta.message);
-    } finally {
-      set_roast_loading(false);
-    }
-  };
 
   return (
     <>
@@ -118,17 +94,12 @@ export default function Home() {
       </Table>
       <div className="absolute z-20 bottom-12 flex gap-x-4 items-center">
         <Button
-          onPress={handle_roast}
+          onPress={() => navigate("/roast")}
           className={"rounded-full"}
           size="md"
           variant="danger-soft"
-          isDisabled={isPending || entries.length === 0 || roast_loading}
         >
-          {roast_loading ? (
-            <Spinner color="danger" />
-          ) : (
-            <ImFire color="danger" />
-          )}
+          <ImFire color="danger" />
           Roast
         </Button>
         <Button

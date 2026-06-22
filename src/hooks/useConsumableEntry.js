@@ -8,6 +8,8 @@ const DEFAULT_SOURCE_TYPE = "homemade";
 
 const ConsumableTypeContext = createContext();
 
+const MINIMUM_ROAST = 3;
+
 // function useConsumableEntryForm() {
 //   const [consumableType, setConsumableType] = useState(DEFAULT_CONSUMABLE_TYPE);
 
@@ -56,10 +58,7 @@ export function useCreateEntry() {
     mutationFn: createEntry,
 
     onSuccess: (newEntry) => {
-      queryClient.setQueryData(
-        ["entries", newEntry._id],
-        newEntry,
-      );
+      queryClient.setQueryData(["entries", newEntry._id], newEntry);
 
       queryClient.invalidateQueries({
         queryKey: ["entries"],
@@ -75,4 +74,4 @@ export function useCreateEntry() {
   });
 }
 
-export { DEFAULT_CONSUMABLE_TYPE, DEFAULT_SOURCE_TYPE, ConsumableTypeContext };
+export { DEFAULT_CONSUMABLE_TYPE, DEFAULT_SOURCE_TYPE, ConsumableTypeContext, MINIMUM_ROAST };
