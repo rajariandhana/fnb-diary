@@ -13,7 +13,7 @@ export function CommercialForm({
   return (
     <>
       <TextField
-        className="flex flex-col gap-2"
+        className="flex flex-col gap-2 mx-1"
         name="input-business"
         isRequired
         value={business}
@@ -27,7 +27,7 @@ export function CommercialForm({
         ></Input>
       </TextField>
       <TextField
-        className="flex flex-col gap-2"
+        className="flex flex-col gap-2 mx-1"
         name="input-commercial-dish"
         isRequired
         value={dish}
@@ -41,7 +41,7 @@ export function CommercialForm({
         ></Input>
       </TextField>
       <TextField
-        className="flex flex-col gap-2"
+        className="flex flex-col gap-2 mx-1"
         name="input-variant"
         value={variant}
         onChange={set_variant}

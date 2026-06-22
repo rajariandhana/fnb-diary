@@ -19,14 +19,14 @@ export default function Home() {
     set_roast_loading(true);
     try {
       const response = await instance.post("/fnb/roast", {
-        period: "SAMPLE",
-        // period: week,
+        // period: "SAMPLE",
+        period: week,
       });
       console.log(response.data.data);
       navigate("/roast-portion", {
         state: {
-          period: "SAMPLE",
-          // period: week,
+          // period: "SAMPLE",
+          period: week,
           roast: response.data.data.roast,
         },
       });
@@ -116,11 +116,11 @@ export default function Home() {
           </Button>
         </Table.Footer>
       </Table>
-      <div className="absolute z-20 bottom-12 flex gap-x-4">
+      <div className="absolute z-20 bottom-12 flex gap-x-4 items-center">
         <Button
           onPress={handle_roast}
           className={"rounded-full"}
-          size="lg"
+          size="md"
           variant="danger-soft"
           isDisabled={isPending || entries.length === 0 || roast_loading}
         >

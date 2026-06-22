@@ -3,6 +3,7 @@ import {
   Button,
   Label,
   Spinner,
+  Surface,
   Tabs,
   TextArea,
   TextField,
@@ -15,6 +16,7 @@ import { SelectConsumedDate } from "./SelectConsumedDate";
 import {
   DEFAULT_CONSUMABLE_TYPE,
   DEFAULT_SOURCE_TYPE,
+  useCreateEntry,
 } from "../hooks/useConsumableEntry";
 import { HomemadeForm } from "./SourceTypeTabForms/HomemadeForm";
 import { CommercialForm } from "./SourceTypeTabForms/CommercialForm";
@@ -93,7 +95,7 @@ export function ConsumeEntry() {
 
   const [page, set_page] = useState(0);
 
-  const [disable_next, set_disable_next] = useState(true);
+  const [submittable, set_submittable] = useState(true);
   useEffect(() => {
     if (
       (source_type == "homemade" && dish.length > 0) ||
@@ -102,9 +104,9 @@ export function ConsumeEntry() {
         commercial_dish.length > 0) ||
       (source_type == "packaged" && product.length > 0)
     ) {
-      set_disable_next(false);
+      set_submittable(false);
     } else {
-      set_disable_next(true);
+      set_submittable(true);
     }
   }, [source_type, dish, business, commercial_dish, product]);
 
@@ -158,120 +160,93 @@ export function ConsumeEntry() {
     console.log(entry);
     return entry;
   };
-  const handleSubmit = async () => {
-    try {
-      set_is_submitting(true);
-      const entry = generate_form();
-      const response = await instance.post("/fnb/entry", entry);
 
-      if (response.data.meta.status === 200) {
-        toast.success("FnB entry created successfully");
+  const createEntryMutation = useCreateEntry();
+  const handleSubmit = async () => {
+    set_is_submitting(true);
+    const entry = generate_form();
+    createEntryMutation.mutate(entry, {
+      onSuccess: () => {
         navigate("/");
-      } else {
-        toast.danger("Failed to create entry.");
-      }
-    } catch (error) {
-      toast.danger("An unexpected error occurred.");
-    } finally {
-      set_is_submitting(false);
-    }
+      },
+    });
   };
 
   return (
     <div className="flex flex-col w-96 justify-between">
-      <div className="flex flex-col gap-4 h-120">
-        {page === 0 ? (
-          <>
-            <SelectConsumedDate
-              consumed_at={consumed_at}
-              set_consumed_at={set_consumed_at}
-            />
-            <SelectConsumableType
-              consumable_type={consumable_type}
-              set_consumable_type={set_consumable_type}
-            />
-            <Tabs
-              className="w-full max-w-md h-80"
-              selectedKey={source_type}
-              onSelectionChange={(key) => set_source_type(key)}
-            >
-              <Tabs.ListContainer>
-                <Tabs.List aria-label="Options">
-                  {sourceTypeOptions.map((option) => (
-                    <Tabs.Tab id={option.key} key={option.key}>
-                      {option.label}
-                      <Tabs.Indicator />
-                    </Tabs.Tab>
-                  ))}
-                </Tabs.List>
-              </Tabs.ListContainer>
-              {sourceTypeOptions.map((option) => (
-                <Tabs.Panel
-                  className="pt-4 flex flex-col gap-4"
-                  id={option.key}
-                  key={option.key}
-                >
-                  {option.tab}
-                </Tabs.Panel>
-              ))}
-            </Tabs>
-          </>
-        ) : (
-          <>
-            <TextField name="input-ingridients" onChange={set_ingridients}>
-              <Label>
-                Ingridients <Optional />
-              </Label>
-              <TextArea
-                className={"h-32"}
-                placeholder="e.g. minced beef 100gr, spring onion"
-              ></TextArea>
-            </TextField>
-            <TextField name="input-notes" onChange={set_notes}>
-              <Label>
-                Additional notes
-                <Optional />
-              </Label>
-              <TextArea
-                className={"h-32"}
-                placeholder="e.g. ate this at 3 AM, shared with friends, less sugar..."
-              ></TextArea>
-            </TextField>
-          </>
-        )}
-      </div>
-      <div className="flex justify-between">
-        {page === 0 ? (
-          <>
-            <Button onPress={() => navigate("/")} variant="secondary">
-              Back
-            </Button>
-            <Button onPress={() => set_page(1)} isDisabled={disable_next}>
-              Next
-            </Button>
-          </>
-        ) : (
-          <>
-            <Button
-              onPress={() => set_page(0)}
-              variant="secondary"
-              isDisabled={is_submitting}
-            >
-              Back
-            </Button>
-            <Button
-              onPress={handleSubmit}
-              isDisabled={is_submitting}
-              className={"w-1/3"}
-            >
-              {is_submitting === true ? (
-                <Spinner color="background" />
-              ) : (
-                <>Submit</>
-              )}
-            </Button>
-          </>
-        )}
+      <div className="flex flex-col gap-4">
+        <SelectConsumedDate
+          consumed_at={consumed_at}
+          set_consumed_at={set_consumed_at}
+        />
+        <SelectConsumableType
+          consumable_type={consumable_type}
+          set_consumable_type={set_consumable_type}
+        />
+        <Surface className="rounded-3xl" variant="tertiary">
+          <Tabs
+            className="w-full max-w-md h-80"
+            selectedKey={source_type}
+            onSelectionChange={(key) => set_source_type(key)}
+          >
+            <Tabs.ListContainer>
+              <Tabs.List aria-label="Options">
+                {sourceTypeOptions.map((option) => (
+                  <Tabs.Tab id={option.key} key={option.key}>
+                    {option.label}
+                    <Tabs.Indicator />
+                  </Tabs.Tab>
+                ))}
+              </Tabs.List>
+            </Tabs.ListContainer>
+            {sourceTypeOptions.map((option) => (
+              <Tabs.Panel
+                className="pt-4 flex flex-col gap-4"
+                id={option.key}
+                key={option.key}
+              >
+                {option.tab}
+              </Tabs.Panel>
+            ))}
+          </Tabs>
+        </Surface>
+        <TextField name="input-ingridients" onChange={set_ingridients}>
+          <Label>
+            Ingridients <Optional />
+          </Label>
+          <TextArea
+            className={"h-24"}
+            placeholder="e.g. minced beef 100gr, spring onion"
+          ></TextArea>
+        </TextField>
+        <TextField name="input-notes" onChange={set_notes}>
+          <Label>
+            Additional notes
+            <Optional />
+          </Label>
+          <TextArea
+            className={"h-24"}
+            placeholder="e.g. ate this at 3 AM, shared with friends, less sugar..."
+          ></TextArea>
+        </TextField>
+        <div className="flex justify-between">
+          <Button onPress={() => navigate("/")} variant="secondary">
+            Back
+          </Button>
+          <Button
+            onPress={handleSubmit}
+            isDisabled={submittable || createEntryMutation.isPending}
+          >
+            {createEntryMutation.isPending === true ? (
+							<>
+              	<Spinner color="background" />
+								Submitting
+							</>
+            ) : (
+              <>Submit</>
+            )}
+          </Button>
+        </div>
       </div>
     </div>
   );

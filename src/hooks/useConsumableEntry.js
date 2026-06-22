@@ -1,7 +1,7 @@
-import { useState, useContext, createContext } from "react";
+import { createContext } from "react";
 import instance from "../libs/axios/instance";
 import { toast } from "@heroui/react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 const DEFAULT_CONSUMABLE_TYPE = "food";
 const DEFAULT_SOURCE_TYPE = "homemade";
@@ -43,4 +43,36 @@ export function useEntries(period) {
     staleTime: 1000 * 60 * 10,
   });
 }
+
+const createEntry = async (entry) => {
+  const response = await instance.post("/fnb/entry", entry);
+  return response.data.data;
+};
+
+export function useCreateEntry() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: createEntry,
+
+    onSuccess: (newEntry) => {
+      queryClient.setQueryData(
+        ["entries", newEntry._id],
+        newEntry,
+      );
+
+      queryClient.invalidateQueries({
+        queryKey: ["entries"],
+      });
+
+      toast.success("FnB entry created successfully");
+    },
+
+    onError: (error) => {
+      console.error(error);
+      toast.danger("Failed to create entry.");
+    },
+  });
+}
+
 export { DEFAULT_CONSUMABLE_TYPE, DEFAULT_SOURCE_TYPE, ConsumableTypeContext };

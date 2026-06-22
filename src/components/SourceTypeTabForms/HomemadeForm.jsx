@@ -4,7 +4,7 @@ export function HomemadeForm({ consumable_type, dish, set_dish }) {
   return (
     <>
       <TextField
-        className="flex flex-col gap-2"
+        className="flex flex-col gap-2 mx-1"
         name="input-dish"
         isRequired
         value={dish}

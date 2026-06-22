@@ -13,7 +13,7 @@ export function PackagedForm({
   return (
     <>
       <TextField
-        className="flex flex-col gap-2"
+        className="flex flex-col gap-2 mx-1"
         name="input-brand"
         value={brand}
         onChange={set_brand}
@@ -27,7 +27,7 @@ export function PackagedForm({
         ></Input>
       </TextField>
       <TextField
-        className="flex flex-col gap-2"
+        className="flex flex-col gap-2 mx-1"
         name="input-product"
         isRequired
         value={product}
@@ -41,7 +41,7 @@ export function PackagedForm({
         ></Input>
       </TextField>
       <TextField
-        className="flex flex-col gap-2"
+        className="flex flex-col gap-2 mx-1"
         name="input-variant"
         value={variant}
         onChange={set_variant}
