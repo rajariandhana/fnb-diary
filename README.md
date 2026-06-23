@@ -16,6 +16,7 @@ TODO:
 - maybe add AI audio
 - guide how to use the app
 - /roast -> /roast/history
+- export to image, save to device
 
 The Weekly Roast
 This Weeks Material

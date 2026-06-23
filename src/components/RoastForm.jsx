@@ -58,8 +58,7 @@ export default function RoastForm() {
 
   const createRoastMutation = useCreateRoast();
   const handle_roast = async () => {
-    const period = "SAMPLE";
-    // const period = period;
+    // const period = "SAMPLE";
     createRoastMutation.mutate(
       {
         period,
@@ -67,11 +66,8 @@ export default function RoastForm() {
       {
         onSuccess: (newRoast) => {
           // console.log("RoastForm", newRoast);
-          navigate("/roast-portion", {
-            state: {
-              period,
-              roast: newRoast.roast,
-            },
+          navigate(`/roast/${newRoast._id ?? "SAMPLE"}`, {
+            state: newRoast,
           });
         },
       },

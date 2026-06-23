@@ -1,12 +1,20 @@
-import { Alert, Button, Chip, ScrollShadow, Surface } from "@heroui/react";
-import { FaAnglesLeft } from "react-icons/fa6";
-import { useLocation, useNavigate } from "react-router";
+import { Alert, Button, ScrollShadow, Spinner, Surface } from "@heroui/react";
+import { useLocation, useNavigate, useParams } from "react-router";
 import ReactMarkdown from "react-markdown";
+import { useQuery } from "@tanstack/react-query";
+import { fetchRoast } from "../hooks/useRoast";
 
 export function RoastPortion() {
+  const { roast_id } = useParams();
   const location = useLocation();
-  const data = location.state;
   const navigate = useNavigate();
+
+  const { data, isPending } = useQuery({
+    queryKey: ["entryRoasts", roast_id],
+    queryFn: fetchRoast,
+    initialData: location.state,
+    enabled: roast_id !== "SAMPLE",
+  });
 
   return (
     <>
@@ -15,15 +23,19 @@ export function RoastPortion() {
           <h2 className="text-lg text-left w-full">
             The Weekly Roast Presents
           </h2>
-          {data.period === "SAMPLE" && (
+          {data.period && data.period === "SAMPLE" && (
             <div className="w-full">
-							<Alert status="warning">
-								<Alert.Indicator/>
-								<Alert.Content>
-									<Alert.Title>This is a sample output</Alert.Title>
-									<Alert.Description>This output is overridden from the server because there are too many requests within a period of time that exhausts the AI token.</Alert.Description>
-								</Alert.Content>
-							</Alert>
+              <Alert status="warning">
+                <Alert.Indicator />
+                <Alert.Content>
+                  <Alert.Title>This is a sample output</Alert.Title>
+                  <Alert.Description>
+                    This output is overridden from the server because there are
+                    too many requests within a period of time that exhausts the
+                    AI token.
+                  </Alert.Description>
+                </Alert.Content>
+              </Alert>
             </div>
           )}
           <Surface className="flex flex-col gap-2 rounded-xl p-4 text-sm">
@@ -37,24 +49,8 @@ export function RoastPortion() {
           </Surface>
         </>
       ) : (
-        <>
-          <Alert status="danger">
-            <Alert.Indicator />
-            <Alert.Content>
-              <Alert.Title>Oops no response available</Alert.Title>
-              <Alert.Description>
-                Go back to home and retry again!
-              </Alert.Description>
-            </Alert.Content>
-          </Alert>
-        </>
+        <Spinner />
       )}
-      <div className="flex w-full justify-between">
-        <Button onPress={() => navigate("/")} variant="outline" size="sm">
-          <FaAnglesLeft />
-          Back to home
-        </Button>
-      </div>
     </>
   );
 }

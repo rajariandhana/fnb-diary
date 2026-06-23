@@ -9,7 +9,6 @@ import {
   TextField,
 } from "@heroui/react";
 import { getLocalTimeZone, today } from "@internationalized/date";
-import instance from "../libs/axios/instance";
 import { SelectConsumableType } from "./SelectConsumableType";
 import { SelectConsumedDate } from "./SelectConsumedDate";
 import {

@@ -16,7 +16,7 @@ function App() {
       <Route element={<Layout is_home={false} />}>
         <Route path="/entry" element={<ConsumeEntry />} />
         <Route path="/roast" element={<RoastForm />} />
-        <Route path="/roast-portion" element={<RoastPortion />} />
+        <Route path="/roast/:roast_id" element={<RoastPortion />} />
       </Route>
     </Routes>
   );
