@@ -14,6 +14,7 @@ TODO:
 - limit how many generating content per day (limit token)
 - create roast history
 - maybe add AI audio
+- guide how to use the app
 
 The Weekly Roast
 This Weeks Material

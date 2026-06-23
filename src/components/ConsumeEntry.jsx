@@ -150,14 +150,14 @@ export function ConsumeEntry() {
         ...entry,
         ingridients,
       };
-    } else if (notes.length > 0) {
+    }
+		if (notes.length > 0) {
       entry = {
         ...entry,
         notes,
       };
     }
 
-    console.log(entry);
     return entry;
   };
 

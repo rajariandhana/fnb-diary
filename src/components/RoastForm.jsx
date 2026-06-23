@@ -8,7 +8,6 @@ import {
   RadioGroup,
   Spinner,
   TextField,
-  toast,
 } from "@heroui/react";
 import clsx from "clsx";
 import { useState } from "react";
@@ -16,7 +15,6 @@ import { useNavigate } from "react-router";
 import { ImFire } from "react-icons/im";
 import {
   MINIMUM_ROAST,
-  useCreateEntry,
   useEntries,
 } from "../hooks/useConsumableEntry";
 import { FaAnglesLeft } from "react-icons/fa6";
