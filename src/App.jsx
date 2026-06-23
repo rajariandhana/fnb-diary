@@ -6,6 +6,7 @@ import Home from "./components/Home";
 import { ConsumeEntry } from "./components/ConsumeEntry";
 import { RoastPortion } from "./components/RoastPortion";
 import RoastForm from "./components/RoastForm";
+import RoastHistory from "./components/RoastHistory";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Route element={<Layout is_home={false} />}>
         <Route path="/entry" element={<ConsumeEntry />} />
         <Route path="/roast" element={<RoastForm />} />
+				<Route path="/roast-history" element={<RoastHistory />} />
         <Route path="/roast/:roast_id" element={<RoastPortion />} />
       </Route>
     </Routes>

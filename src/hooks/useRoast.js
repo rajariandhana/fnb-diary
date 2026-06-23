@@ -8,11 +8,11 @@ const fetchRoasts = async () => {
   return response.data.data;
 };
 
-export function useEntries() {
+export function useEntryRoasts() {
   const queryClient = useQueryClient();
 
   return useQuery({
-    queryKey: ["entries"],
+    queryKey: ["entryRoasts"],
     queryFn: fetchRoasts,
 
     select: (entryRoasts) => {

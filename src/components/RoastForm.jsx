@@ -15,6 +15,7 @@ import { useNavigate } from "react-router";
 import { ImFire } from "react-icons/im";
 import { MINIMUM_ROAST, useEntries } from "../hooks/useConsumableEntry";
 import { useCreateRoast } from "../hooks/useRoast";
+import { FaRegClock } from "react-icons/fa6";
 
 export default function RoastForm() {
   const navigate = useNavigate();
@@ -130,7 +131,16 @@ export default function RoastForm() {
           </Alert.Description>
         </Alert.Content>
       </Alert>
-      <div className="flex justify-center w-full">
+      <div className="flex justify-between w-full items-center">
+        <Button
+          onPress={() => navigate("/roast-history")}
+          size="sm"
+          isDisabled={createRoastMutation.isPending}
+          variant="outline"
+        >
+          <FaRegClock />
+          History
+        </Button>
         <Button
           onPress={handle_roast}
           className={"rounded-full"}
