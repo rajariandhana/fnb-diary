@@ -55,6 +55,7 @@ export function useCreateEntry() {
   const queryClient = useQueryClient();
 
   return useMutation({
+		mutationKey: ["createEntry"],
     mutationFn: createEntry,
 
     onSuccess: (newEntry) => {

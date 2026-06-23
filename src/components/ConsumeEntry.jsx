@@ -7,7 +7,6 @@ import {
   Tabs,
   TextArea,
   TextField,
-  toast,
 } from "@heroui/react";
 import { getLocalTimeZone, today } from "@internationalized/date";
 import instance from "../libs/axios/instance";
@@ -25,11 +24,6 @@ import { useNavigate } from "react-router";
 import { Optional } from "./Optional";
 
 export function ConsumeEntry() {
-  const ping = async () => {
-    const response = await instance.get("/ping");
-    console.log(response);
-  };
-
   const [consumable_type, set_consumable_type] = useState(
     DEFAULT_CONSUMABLE_TYPE,
   );
@@ -95,7 +89,7 @@ export function ConsumeEntry() {
 
   const [page, set_page] = useState(0);
 
-  const [submittable, set_submittable] = useState(true);
+  const [can_submit, set_can_submit] = useState(true);
   useEffect(() => {
     if (
       (source_type == "homemade" && dish.length > 0) ||
@@ -104,15 +98,13 @@ export function ConsumeEntry() {
         commercial_dish.length > 0) ||
       (source_type == "packaged" && product.length > 0)
     ) {
-      set_submittable(false);
+      set_can_submit(false);
     } else {
-      set_submittable(true);
+      set_can_submit(true);
     }
   }, [source_type, dish, business, commercial_dish, product]);
 
-  const [is_submitting, set_is_submitting] = useState();
   const navigate = useNavigate();
-  const [alert, set_alert] = useState(null);
   const generate_form = () => {
     let entry = {
       consumable_type,
@@ -151,7 +143,7 @@ export function ConsumeEntry() {
         ingridients,
       };
     }
-		if (notes.length > 0) {
+    if (notes.length > 0) {
       entry = {
         ...entry,
         notes,
@@ -163,7 +155,6 @@ export function ConsumeEntry() {
 
   const createEntryMutation = useCreateEntry();
   const handleSubmit = async () => {
-    set_is_submitting(true);
     const entry = generate_form();
     createEntryMutation.mutate(entry, {
       onSuccess: () => {
@@ -229,19 +220,16 @@ export function ConsumeEntry() {
             placeholder="e.g. ate this at 3 AM, shared with friends, less sugar..."
           ></TextArea>
         </TextField>
-        <div className="flex justify-between">
-          <Button onPress={() => navigate("/")} variant="secondary">
-            Back
-          </Button>
+        <div className="flex justify-end">
           <Button
             onPress={handleSubmit}
-            isDisabled={submittable || createEntryMutation.isPending}
+            isDisabled={can_submit || createEntryMutation.isPending}
           >
             {createEntryMutation.isPending === true ? (
-							<>
-              	<Spinner color="background" />
-								Submitting
-							</>
+              <>
+                <Spinner color="background" />
+                Submitting
+              </>
             ) : (
               <>Submit</>
             )}

@@ -15,6 +15,7 @@ TODO:
 - create roast history
 - maybe add AI audio
 - guide how to use the app
+- /roast -> /roast/history
 
 The Weekly Roast
 This Weeks Material

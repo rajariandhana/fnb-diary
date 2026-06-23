@@ -10,8 +10,10 @@ import RoastForm from "./components/RoastForm";
 function App() {
   return (
     <Routes>
-      <Route element={<Layout />}>
+      <Route element={<Layout is_home={true} />}>
         <Route path="/" element={<Home />} />
+      </Route>
+      <Route element={<Layout is_home={false} />}>
         <Route path="/entry" element={<ConsumeEntry />} />
         <Route path="/roast" element={<RoastForm />} />
         <Route path="/roast-portion" element={<RoastPortion />} />

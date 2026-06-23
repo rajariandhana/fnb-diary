@@ -13,11 +13,7 @@ import clsx from "clsx";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { ImFire } from "react-icons/im";
-import {
-  MINIMUM_ROAST,
-  useEntries,
-} from "../hooks/useConsumableEntry";
-import { FaAnglesLeft } from "react-icons/fa6";
+import { MINIMUM_ROAST, useEntries } from "../hooks/useConsumableEntry";
 import { useCreateRoast } from "../hooks/useRoast";
 
 export default function RoastForm() {
@@ -157,12 +153,6 @@ export default function RoastForm() {
               Roast
             </>
           )}
-        </Button>
-      </div>
-      <div className="absolute z-20 bottom-12 flex gap-x-4 items-center">
-        <Button onPress={() => navigate("/")} variant="secondary">
-          <FaAnglesLeft />
-          Back
         </Button>
       </div>
     </>

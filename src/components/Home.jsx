@@ -92,25 +92,6 @@ export default function Home() {
           </Button>
         </Table.Footer>
       </Table>
-      <div className="absolute z-20 bottom-12 flex gap-x-4 items-center">
-        <Button
-          onPress={() => navigate("/roast")}
-          className={"rounded-full"}
-          size="md"
-          variant="danger-soft"
-        >
-          <ImFire color="danger" />
-          Roast
-        </Button>
-        <Button
-          onPress={() => navigate("/entry")}
-          className={"rounded-full"}
-          size="lg"
-        >
-          <FaPlus color="current" size={48} />
-          Add entry
-        </Button>
-      </div>
     </>
   );
 }
