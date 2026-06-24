@@ -18,7 +18,7 @@ function App() {
       </Route>
       <Route element={<Layout is_home={false} />}>
         <Route path="/entries" element={<ConsumeEntry />} />
-				<Route path="/entries-history" element={<EntriesHistory />} />
+        <Route path="/entries-history" element={<EntriesHistory />} />
         <Route path="/roast" element={<RoastForm />} />
         <Route path="/roast-history" element={<RoastHistory />} />
         <Route path="/roast/:roast_id" element={<RoastPortion />} />

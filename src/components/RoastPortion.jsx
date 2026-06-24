@@ -4,6 +4,8 @@ import ReactMarkdown from "react-markdown";
 import { useQuery } from "@tanstack/react-query";
 import { fetchRoast } from "../hooks/useRoast";
 import { FaRegClock } from "react-icons/fa6";
+import { useEffect } from "react";
+import { animate, stagger } from "animejs";
 
 export function RoastPortion() {
   const { roast_id } = useParams();
@@ -17,13 +19,23 @@ export function RoastPortion() {
     enabled: roast_id !== "SAMPLE",
   });
 
+  useEffect(() => {
+    if (!data?.roast) return;
+    const d = document.querySelectorAll(".roast-paragraph");
+    animate(d, {
+      y: [{ to: ["100%", "0%"] }],
+      opacity: [{ to: ["0", "100"] }],
+      duration: 700,
+      ease: "out(3)",
+      delay: stagger(200),
+    });
+  }, [data?.roast]);
+
   return (
     <>
-      {data ? (
+      {data && !isPending ? (
         <>
-          <h2>
-            The Weekly Roast Presents...
-          </h2>
+          <h2>The Weekly Roast Presents...</h2>
           {data.period && data.period === "SAMPLE" && (
             <div className="w-full">
               <Alert status="warning">
@@ -39,10 +51,11 @@ export function RoastPortion() {
               </Alert>
             </div>
           )}
+          {/* <p className="paragraph">{data.roast}</p> */}
           <Surface className="flex flex-col gap-2 rounded-xl p-4 text-sm">
             <ScrollShadow className="max-h-90">
               {data.roast.split("\n\n").map((paragraph, index) => (
-                <div key={index} className="leading-6 mb-4">
+                <div key={index} className="leading-6 mb-4 roast-paragraph">
                   <ReactMarkdown key={index}>{paragraph}</ReactMarkdown>
                 </div>
               ))}
@@ -52,7 +65,7 @@ export function RoastPortion() {
       ) : (
         <Spinner />
       )}
-			<div className="flex justify-between w-full items-center">
+      <div className="flex justify-between w-full items-center">
         <Button
           onPress={() => navigate("/roast-history")}
           size="sm"
