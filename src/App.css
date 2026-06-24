@@ -129,3 +129,15 @@
 .column-name {
   @apply text-left max-w-48 truncate;
 }
+
+h2, h3, p {
+	@apply text-left w-full;
+}
+
+h2 {
+	@apply text-lg font-semibold;
+}
+
+p {
+	@apply text-sm;
+}

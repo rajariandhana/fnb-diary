@@ -3,6 +3,7 @@ import { useLocation, useNavigate, useParams } from "react-router";
 import ReactMarkdown from "react-markdown";
 import { useQuery } from "@tanstack/react-query";
 import { fetchRoast } from "../hooks/useRoast";
+import { FaRegClock } from "react-icons/fa6";
 
 export function RoastPortion() {
   const { roast_id } = useParams();
@@ -20,8 +21,8 @@ export function RoastPortion() {
     <>
       {data ? (
         <>
-          <h2 className="text-lg text-left w-full">
-            The Weekly Roast Presents
+          <h2>
+            The Weekly Roast Presents...
           </h2>
           {data.period && data.period === "SAMPLE" && (
             <div className="w-full">
@@ -51,6 +52,16 @@ export function RoastPortion() {
       ) : (
         <Spinner />
       )}
+			<div className="flex justify-between w-full items-center">
+        <Button
+          onPress={() => navigate("/roast-history")}
+          size="sm"
+          variant="outline"
+        >
+          <FaRegClock />
+          History
+        </Button>
+      </div>
     </>
   );
 }

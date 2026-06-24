@@ -9,7 +9,7 @@ export default function RoastHistory() {
   const { data: entries, isPending } = useEntryRoasts();
   return (
     <>
-      <h2 className="text-md text-left w-full">Previously Generated Roasts</h2>
+      <h2>Previously Generated Roasts</h2>
       {/* <ImFire /> */}
       <Table variant="secondary">
         <Table.ScrollContainer>

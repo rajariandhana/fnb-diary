@@ -11,7 +11,7 @@ export default function Home() {
 
   return (
     <>
-      <h2 className="text-left w-full text-lg">
+      <h2>
         {week === "PERIOD_THIS_WEEK" ? "This" : "Last"} Week's Roast Materials
       </h2>
       <Table variant="secondary">

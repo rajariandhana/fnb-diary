@@ -14,9 +14,10 @@ TODO:
 - limit how many generating content per day (limit token)
 - create roast history
 - maybe add AI audio
-- guide how to use the app
 - /roast -> /roast/history
 - export to image, save to device
+- navbar others at bottom -> app guide, entries,
+- animation, animate text generation
 
 The Weekly Roast
 This Weeks Material

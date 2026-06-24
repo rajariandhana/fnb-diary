@@ -1,10 +1,11 @@
 import { Outlet, useNavigate } from "react-router";
 import { Logo } from "./Logo";
-import { Button } from "@heroui/react";
+import { Button, Dropdown, Label } from "@heroui/react";
 import { ImFire } from "react-icons/im";
-import { FaPlus } from "react-icons/fa6";
-import { FaHome } from "react-icons/fa";
+import { FaPlus, FaRegClock } from "react-icons/fa6";
+import { FaHome, FaRegQuestionCircle } from "react-icons/fa";
 import { useIsMutating } from "@tanstack/react-query";
+import { IoListOutline } from "react-icons/io5";
 
 const Layout = ({ is_home }) => {
   const navigate = useNavigate();
@@ -16,6 +17,19 @@ const Layout = ({ is_home }) => {
     mutationKey: ["createRoast"],
   });
   const is_submitting = createRoastMutation > 0 || createEntryMutation > 0;
+
+  const menus = [
+    {
+      label: "FnB Entries",
+      link: "/entries-history",
+      icon: <FaRegClock />,
+    },
+    {
+      label: "App Guide",
+      link: "/guide",
+      icon: <FaRegQuestionCircle />,
+    },
+  ];
 
   return (
     <div className="flex flex-col items-center min-h-screen bg-background-secondary">
@@ -29,20 +43,39 @@ const Layout = ({ is_home }) => {
             <Button
               onPress={() => navigate("/roast")}
               className={"rounded-full"}
-              size="md"
               variant="danger-soft"
             >
               <ImFire color="danger" />
               Roast
             </Button>
             <Button
-              onPress={() => navigate("/entry")}
+              onPress={() => navigate("/entries")}
               className={"rounded-full"}
               size="lg"
             >
               <FaPlus color="current" size={48} />
               Add entry
             </Button>
+            <Dropdown>
+              <Button
+                variant="secondary"
+                isIconOnly
+                className={"rounded-full"}
+                aria-label="Menu"
+              >
+                <IoListOutline />
+              </Button>
+              <Dropdown.Popover>
+                <Dropdown.Menu onAction={(key) => navigate(key)}>
+                  {menus.map((menu) => (
+                    <Dropdown.Item key={menu.link} id={menu.link}>
+                      {menu.icon}
+                      <Label>{menu.label}</Label>
+                    </Dropdown.Item>
+                  ))}
+                </Dropdown.Menu>
+              </Dropdown.Popover>
+            </Dropdown>
           </>
         )}
         {!is_home && (

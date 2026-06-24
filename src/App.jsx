@@ -7,6 +7,8 @@ import { ConsumeEntry } from "./components/ConsumeEntry";
 import { RoastPortion } from "./components/RoastPortion";
 import RoastForm from "./components/RoastForm";
 import RoastHistory from "./components/RoastHistory";
+import Guide from "./components/Guide";
+import EntriesHistory from "./components/EntriesHistory";
 
 function App() {
   return (
@@ -15,10 +17,12 @@ function App() {
         <Route path="/" element={<Home />} />
       </Route>
       <Route element={<Layout is_home={false} />}>
-        <Route path="/entry" element={<ConsumeEntry />} />
+        <Route path="/entries" element={<ConsumeEntry />} />
+				<Route path="/entries-history" element={<EntriesHistory />} />
         <Route path="/roast" element={<RoastForm />} />
-				<Route path="/roast-history" element={<RoastHistory />} />
+        <Route path="/roast-history" element={<RoastHistory />} />
         <Route path="/roast/:roast_id" element={<RoastPortion />} />
+        <Route path="/guide" element={<Guide />} />
       </Route>
     </Routes>
   );
