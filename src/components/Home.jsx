@@ -15,7 +15,7 @@ export default function Home() {
         {week === "PERIOD_THIS_WEEK" ? "This" : "Last"} Week's Roast Materials
       </h2>
       <Table variant="secondary">
-        <Table.ScrollContainer>
+        <Table.ScrollContainer className="h-100">
           <Table.Content aria-label="Entries Table" className="h-full">
             <Table.Header>
               <Table.Column isRowHeader className={"column-date"}>
